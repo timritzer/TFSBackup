@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TFS_Backup_Utility
 {
-    interface IApplicationLogger
+    public interface IApplicationLogger
     {
-        public void LogException(Exception ex, String description);
-        public void WriteToEventLog(string Entry, bool isError);
+        void LogException(Exception ex, String description);
+        void WriteToEventLog(string Entry, bool isError);
     }
 }

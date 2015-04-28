@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace TFS_Backup_Utility
 {
-    class ApplicationLogger : IApplicationLogger
+    public class ApplicationLogger : IApplicationLogger
     {
-        private void LogException(Exception ex, string errorMessage = "")
+        public void LogException(Exception ex, string errorMessage = "")
         {
             try
             {

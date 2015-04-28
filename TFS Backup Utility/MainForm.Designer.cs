@@ -118,7 +118,7 @@ namespace TFS_Backup_Utility
             // SaveBtn
             // 
             this.SaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveBtn.Location = new System.Drawing.Point(379, 57);
+            this.SaveBtn.Location = new System.Drawing.Point(393, 94);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveBtn.TabIndex = 4;
@@ -232,7 +232,6 @@ namespace TFS_Backup_Utility
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TFS Backup Utility Settings";
             this.TopMost = true;
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.ContextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

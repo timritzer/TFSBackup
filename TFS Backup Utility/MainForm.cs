@@ -27,8 +27,8 @@ namespace TFS_Backup_Utility
         private Properties.Settings settings = new Properties.Settings();
 
 
-        private IApplicationLogger AppLogger { get; private set; }
-        private BackupLogger DBLogger { get; private set; }
+        private IApplicationLogger AppLogger { get; set; }
+        private BackupLogger DBLogger { get; set; }
 
         [DllImport("user32", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
         public static extern short GetAsyncKeyState(Keys vKey);
@@ -57,7 +57,7 @@ namespace TFS_Backup_Utility
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
-            InitializeComponent();
+          InitializeComponent();
             
             //If we don't exit properly, consider it an error.
             Environment.ExitCode = 1;
