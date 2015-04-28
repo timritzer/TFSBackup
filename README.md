@@ -11,6 +11,10 @@ Restoring from backups can be done by simply unshelving the shelveset in Visual 
 
 
 ToDo:
-  -Finish porting over features from original source
-    -Automatic update functionality from fileshare
-    -Watchdog process to make sure backup application stays alive and is not killed.
+  <ul>
+  <li>Finish porting over features from original source</li>
+    <ul>
+    	<li>Automatic update functionality from fileshare</li>
+    	<li>Watchdog process to make sure backup application stays alive and is not killed.</li>
+    </ul>
+</ul>
