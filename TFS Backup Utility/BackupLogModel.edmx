@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BackupLogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BackupApplicationLogs">
+          <Key>
+            <PropertyRef Name="BackupApplicationLogSys" />
+          </Key>
+          <Property Name="LogText" Type="varchar(max)" Nullable="false" />
+          <Property Name="BackupUserSys" Type="int" Nullable="false" />
+          <Property Name="BackupApplicationLogSys" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BackupFiles">
+          <Key>
+            <PropertyRef Name="BackupFileSys" />
+          </Key>
+          <Property Name="FilePath" Type="varchar(max)" Nullable="false" />
+          <Property Name="BackupSys" Type="int" Nullable="false" />
+          <Property Name="BackupFileSys" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BackupLogs">
+          <Key>
+            <PropertyRef Name="BackupLogSys" />
+          </Key>
+          <Property Name="LogText" Type="varchar(max)" Nullable="false" />
+          <Property Name="BackupSys" Type="int" Nullable="false" />
+          <Property Name="BackupLogSys" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Backups">
+          <Key>
+            <PropertyRef Name="BackupSys" />
+          </Key>
+          <Property Name="BackupName" Type="varchar(max)" Nullable="false" />
+          <Property Name="BackupDateTime" Type="datetime" Nullable="false" />
+          <Property Name="BackupUserSys" Type="int" Nullable="false" />
+          <Property Name="BackupSys" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Successful" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BackupUsers">
+          <Key>
+            <PropertyRef Name="BackupUserSys" />
+          </Key>
+          <Property Name="UserName" Type="varchar(max)" Nullable="false" />
+          <Property Name="ComputerName" Type="varchar(max)" Nullable="false" />
+          <Property Name="BackupUserSys" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BackupApplicationLogs_BackupUsers">
+          <End Role="BackupUsers" Type="Self.BackupUsers" Multiplicity="1" />
+          <End Role="BackupApplicationLogs" Type="Self.BackupApplicationLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BackupUsers">
+              <PropertyRef Name="BackupUserSys" />
+            </Principal>
+            <Dependent Role="BackupApplicationLogs">
+              <PropertyRef Name="BackupUserSys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BackupFiles_Backups">
+          <End Role="Backups" Type="Self.Backups" Multiplicity="1" />
+          <End Role="BackupFiles" Type="Self.BackupFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Backups">
+              <PropertyRef Name="BackupSys" />
+            </Principal>
+            <Dependent Role="BackupFiles">
+              <PropertyRef Name="BackupSys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BackupLogs_Backups">
+          <End Role="Backups" Type="Self.Backups" Multiplicity="1" />
+          <End Role="BackupLogs" Type="Self.BackupLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Backups">
+              <PropertyRef Name="BackupSys" />
+            </Principal>
+            <Dependent Role="BackupLogs">
+              <PropertyRef Name="BackupSys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Backups_BackupUsers">
+          <End Role="BackupUsers" Type="Self.BackupUsers" Multiplicity="1" />
+          <End Role="Backups" Type="Self.Backups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BackupUsers">
+              <PropertyRef Name="BackupUserSys" />
+            </Principal>
+            <Dependent Role="Backups">
+              <PropertyRef Name="BackupUserSys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BackupLogModelStoreContainer">
+          <EntitySet Name="BackupApplicationLogs" EntityType="Self.BackupApplicationLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BackupFiles" EntityType="Self.BackupFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BackupLogs" EntityType="Self.BackupLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Backups" EntityType="Self.Backups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BackupUsers" EntityType="Self.BackupUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BackupApplicationLogs_BackupUsers" Association="Self.FK_BackupApplicationLogs_BackupUsers">
+            <End Role="BackupUsers" EntitySet="BackupUsers" />
+            <End Role="BackupApplicationLogs" EntitySet="BackupApplicationLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BackupFiles_Backups" Association="Self.FK_BackupFiles_Backups">
+            <End Role="Backups" EntitySet="Backups" />
+            <End Role="BackupFiles" EntitySet="BackupFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BackupLogs_Backups" Association="Self.FK_BackupLogs_Backups">
+            <End Role="Backups" EntitySet="Backups" />
+            <End Role="BackupLogs" EntitySet="BackupLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Backups_BackupUsers" Association="Self.FK_Backups_BackupUsers">
+            <End Role="BackupUsers" EntitySet="BackupUsers" />
+            <End Role="Backups" EntitySet="Backups" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BackupLogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BackupApplicationLog">
+          <Key>
+            <PropertyRef Name="BackupApplicationLogSys" />
+          </Key>
+          <Property Name="LogText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BackupUserSys" Type="Int32" Nullable="false" />
+          <Property Name="BackupApplicationLogSys" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="BackupUser" Relationship="Self.FK_BackupApplicationLogs_BackupUsers" FromRole="BackupApplicationLogs" ToRole="BackupUsers" />
+        </EntityType>
+        <EntityType Name="BackupFile">
+          <Key>
+            <PropertyRef Name="BackupFileSys" />
+          </Key>
+          <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BackupSys" Type="Int32" Nullable="false" />
+          <Property Name="BackupFileSys" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Backup" Relationship="Self.FK_BackupFiles_Backups" FromRole="BackupFiles" ToRole="Backups" />
+        </EntityType>
+        <EntityType Name="BackupLog">
+          <Key>
+            <PropertyRef Name="BackupLogSys" />
+          </Key>
+          <Property Name="LogText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BackupSys" Type="Int32" Nullable="false" />
+          <Property Name="BackupLogSys" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Backup" Relationship="Self.FK_BackupLogs_Backups" FromRole="BackupLogs" ToRole="Backups" />
+        </EntityType>
+        <EntityType Name="Backup">
+          <Key>
+            <PropertyRef Name="BackupSys" />
+          </Key>
+          <Property Name="BackupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BackupDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BackupUserSys" Type="Int32" Nullable="false" />
+          <Property Name="BackupSys" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Successful" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BackupFiles" Relationship="Self.FK_BackupFiles_Backups" FromRole="Backups" ToRole="BackupFiles" />
+          <NavigationProperty Name="BackupLogs" Relationship="Self.FK_BackupLogs_Backups" FromRole="Backups" ToRole="BackupLogs" />
+          <NavigationProperty Name="BackupUser" Relationship="Self.FK_Backups_BackupUsers" FromRole="Backups" ToRole="BackupUsers" />
+        </EntityType>
+        <EntityType Name="BackupUser">
+          <Key>
+            <PropertyRef Name="BackupUserSys" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ComputerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BackupUserSys" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="BackupApplicationLogs" Relationship="Self.FK_BackupApplicationLogs_BackupUsers" FromRole="BackupUsers" ToRole="BackupApplicationLogs" />
+          <NavigationProperty Name="Backups" Relationship="Self.FK_Backups_BackupUsers" FromRole="BackupUsers" ToRole="Backups" />
+        </EntityType>
+        <Association Name="FK_BackupApplicationLogs_BackupUsers">
+          <End Role="BackupUsers" Type="Self.BackupUser" Multiplicity="1" />
+          <End Role="BackupApplicationLogs" Type="Self.BackupApplicationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BackupUsers">
+              <PropertyRef Name="BackupUserSys" />
+            </Principal>
+            <Dependent Role="BackupApplicationLogs">
+              <PropertyRef Name="BackupUserSys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BackupFiles_Backups">
+          <End Role="Backups" Type="Self.Backup" Multiplicity="1" />
+          <End Role="BackupFiles" Type="Self.BackupFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Backups">
+              <PropertyRef Name="BackupSys" />
+            </Principal>
+            <Dependent Role="BackupFiles">
+              <PropertyRef Name="BackupSys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BackupLogs_Backups">
+          <End Role="Backups" Type="Self.Backup" Multiplicity="1" />
+          <End Role="BackupLogs" Type="Self.BackupLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Backups">
+              <PropertyRef Name="BackupSys" />
+            </Principal>
+            <Dependent Role="BackupLogs">
+              <PropertyRef Name="BackupSys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Backups_BackupUsers">
+          <End Role="BackupUsers" Type="Self.BackupUser" Multiplicity="1" />
+          <End Role="Backups" Type="Self.Backup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BackupUsers">
+              <PropertyRef Name="BackupUserSys" />
+            </Principal>
+            <Dependent Role="Backups">
+              <PropertyRef Name="BackupUserSys" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BackupApplicationLogs" EntityType="Self.BackupApplicationLog" />
+          <EntitySet Name="BackupFiles" EntityType="Self.BackupFile" />
+          <EntitySet Name="BackupLogs" EntityType="Self.BackupLog" />
+          <EntitySet Name="Backups" EntityType="Self.Backup" />
+          <EntitySet Name="BackupUsers" EntityType="Self.BackupUser" />
+          <AssociationSet Name="FK_BackupApplicationLogs_BackupUsers" Association="Self.FK_BackupApplicationLogs_BackupUsers">
+            <End Role="BackupUsers" EntitySet="BackupUsers" />
+            <End Role="BackupApplicationLogs" EntitySet="BackupApplicationLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BackupFiles_Backups" Association="Self.FK_BackupFiles_Backups">
+            <End Role="Backups" EntitySet="Backups" />
+            <End Role="BackupFiles" EntitySet="BackupFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BackupLogs_Backups" Association="Self.FK_BackupLogs_Backups">
+            <End Role="Backups" EntitySet="Backups" />
+            <End Role="BackupLogs" EntitySet="BackupLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Backups_BackupUsers" Association="Self.FK_Backups_BackupUsers">
+            <End Role="BackupUsers" EntitySet="BackupUsers" />
+            <End Role="Backups" EntitySet="Backups" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BackupLogModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="BackupApplicationLogs">
+            <EntityTypeMapping TypeName="BackupLogModel.BackupApplicationLog">
+              <MappingFragment StoreEntitySet="BackupApplicationLogs">
+                <ScalarProperty Name="LogText" ColumnName="LogText" />
+                <ScalarProperty Name="BackupUserSys" ColumnName="BackupUserSys" />
+                <ScalarProperty Name="BackupApplicationLogSys" ColumnName="BackupApplicationLogSys" />
+                <ScalarProperty Name="LogDateTime" ColumnName="LogDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BackupFiles">
+            <EntityTypeMapping TypeName="BackupLogModel.BackupFile">
+              <MappingFragment StoreEntitySet="BackupFiles">
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="BackupSys" ColumnName="BackupSys" />
+                <ScalarProperty Name="BackupFileSys" ColumnName="BackupFileSys" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BackupLogs">
+            <EntityTypeMapping TypeName="BackupLogModel.BackupLog">
+              <MappingFragment StoreEntitySet="BackupLogs">
+                <ScalarProperty Name="LogText" ColumnName="LogText" />
+                <ScalarProperty Name="BackupSys" ColumnName="BackupSys" />
+                <ScalarProperty Name="BackupLogSys" ColumnName="BackupLogSys" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Backups">
+            <EntityTypeMapping TypeName="BackupLogModel.Backup">
+              <MappingFragment StoreEntitySet="Backups">
+                <ScalarProperty Name="BackupName" ColumnName="BackupName" />
+                <ScalarProperty Name="BackupDateTime" ColumnName="BackupDateTime" />
+                <ScalarProperty Name="BackupUserSys" ColumnName="BackupUserSys" />
+                <ScalarProperty Name="BackupSys" ColumnName="BackupSys" />
+                <ScalarProperty Name="Successful" ColumnName="Successful" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BackupUsers">
+            <EntityTypeMapping TypeName="BackupLogModel.BackupUser">
+              <MappingFragment StoreEntitySet="BackupUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ComputerName" ColumnName="ComputerName" />
+                <ScalarProperty Name="BackupUserSys" ColumnName="BackupUserSys" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
