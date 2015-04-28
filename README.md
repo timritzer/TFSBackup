@@ -4,7 +4,7 @@ Backup application for automatically creating shelvesets in TFS to use as a regu
 
 Creates shelvesets every 30 Minutes, and if the option is selected makes a Daily shelveset for each day of the week.
 
-Shelvesets are automatically overwritten when the nex backup of the same type kicks off.
+Shelvesets are automatically overwritten when the next backup of the same type kicks off.
 By default this leaves you with up to a week of rolling daily backups to fall back on if needed.
 
 Restoring from backups can be done by simply unshelving the shelveset in Visual Studio, no additional tools needed.
