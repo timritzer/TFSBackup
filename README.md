@@ -9,6 +9,11 @@ By default this leaves you with up to a week of rolling daily backups to fall ba
 
 Restoring from backups can be done by simply unshelving the shelveset in Visual Studio, no additional tools needed.
 
+<b>Note:</b> this utility allows logging of the backups, users and any conflicts/errrors to a DB store.
+The functionality is disabled by default to make it easier to run, but can be re-enabled by uncommenting the following line in the Load event:
+<pre>    //Uncomment to support Database logging
+    DBLogger = new BackupLogger(AppLogger);
+</pre>
 
 ToDo:
   <ul>
